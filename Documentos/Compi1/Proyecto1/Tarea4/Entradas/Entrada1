@@ -1,0 +1,18 @@
+$mate nombre = "restas"$
+	MenosCinco(v1) = {v1-5};
+	RestaDeTres(v1,v2,v3) = {v1-v2-v3};
+	Cons descripcion = "la mejor tienda";
+	Cons pan = "pantalon";
+	Cons precio = 10;
+$mate-$
+$request$
+	$CrearUsuario$
+		$id$ [restas,MenosCinco(10)] $id-$
+		$nombre$ [restas,pan] $nombre-$
+		$apellido$ "Perez" $apellido-$
+		$password$ ab12cd $password-$
+		$telefono$ [restas,precio] $telefono-$
+		$email$ carlosPeres10@compi1.com $email-$
+		$direccion$ "Mi Casa" $direccion-$
+	$CrearUsuario-$
+$request-$

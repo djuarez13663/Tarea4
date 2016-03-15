@@ -1,0 +1,27 @@
+$request$
+	$producto tipo = "crear"$
+		$codigo$ 2 $codigo-$
+		$nombre$ "Tasa" $nombre-$
+		$cantidad$ {8*33+1} $cantidad-$
+		$marca$ "Montoya" $marca-$
+		$color$ "blanco" $color-$
+		$tamaño$ {Pt(Rq((9+1)-6),4)} $tamaño-$
+		$img$ "Mi Ruta" $img-$
+		$sucursal$ 8 $sucursal-$
+	$producto-$
+$request-$
+
+
+$request$
+	$tienda id = 10$
+		$producto tipo = "modificar" codigo = 10 nombre = "plato" cantidad = {8*8-1}-$
+		$producto tipo = "eliminar" codigo = 11-$
+	$tienda-$
+$request-$
+
+
+$request$
+	$producto tipo = "modificar" codigo = 2 sucursal = 8 nombre = "plato" cantidad = {8*8-1}-$
+	$producto tipo = "eliminar" codigo = 10 sucursal = 12-$
+$request-$
+

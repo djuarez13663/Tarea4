@@ -1,0 +1,298 @@
+package servidorp1;
+
+import java_cup.runtime.*;
+import java.util.*;
+
+
+parser code
+{:
+
+    public Nodo raiz;
+    /**Metodo al que se llama automáticamente ante algún error sintactico.*/
+    public void syntax_error(Symbol s){
+        System.out.println("Error sintáctico en la Línea " + (s.right) +" Columna "+s.left+ ". Identificador "+s.value + " no reconocido." );
+        
+    }
+
+    /**Metodo al que se llama en el momento en que ya no es posible una recuperación de
+    errores.*/
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
+        //System.out.println("Error en la Línea " + (s.right)+ " Columna "+s.left+". Identificador " +  s.value + " no reconocido.");
+        
+    }
+:}
+
+action code
+{:
+
+//ingresar codigo java
+:}
+
+
+//termianles
+terminal rrequest, iniciousuario, id, contrasena, dolar, guion, crearusuario, nombre, apellido, telefono, email, direccion;
+terminal tienda, tipo, creartienda, codigo, propietario, img, igual, coma, modificacion,eliminar, mas, por, div, para, parc, llavea;
+terminal llavec, raiz, pot, producto, cantidad, marca, color, tamano, sucursal, modificar,mate, puntoycoma, cons, corcha,corchc;
+terminal extraer, de, donde, query, rand, ror, rnot, igual2, rget, tiendas, productos;
+terminal String entero, cadena, correo, decimal, identificador;
+
+
+//no terminales
+
+non terminal Nodo Iniciar, Inicio, Request, Accion, ListaAccion, Login, IdL,PassL, RegistrarU, CampoU, IdU, NombreU, ApellidoU, ModificarPro;
+non terminal Nodo PassU, TelU, EmailU, DireccionU, CrearT, CrearTienda, CodigoT, PropietarioT, NombreT, DireccionT, TelefonoT, ImgT;
+non terminal Nodo ModificarTienda, ModificarT, CampoModT, CodigoMT, PropietarioMT, NombreMT, DireccionMT, CodigoMP, SucursalMP;
+non terminal Nodo TelefonoMT, CodigoET, PropietarioET, Ope, Aritm, CrearProducto, CampoP, NombreMP, CantidadMP, MarcaMP, ColorMP, TamanoMP;
+non terminal Nodo CodigoP, NombreP, CantidadP, MarcaP, ColorP, TamanoP, ImgP, SucursalP, CampoMP,ModificarProducto, ModificarPro1;
+non terminal Nodo CodigoEP,SucursalEP, EMate,CuerpoMate, Mate1, Metod, Cons, Parametros, ValCons,LLamadaMate, ValPara, ParaLlamada;
+non terminal Nodo IEntero, ICadena, Consulta, CuerpoConsulta, ExpLog, ListaTiendas, ListaProductos,Cuerpo,Cuerpo1;
+
+//precedencia
+precedence left mas,guion;
+precedence left por, div;
+precedence left raiz,pot;
+
+precedence left rand, ror;
+precedence left rnot;
+
+start with Iniciar;
+
+Iniciar ::= Cuerpo;
+
+Cuerpo ::= Cuerpo1;
+
+Cuerpo1 ::= Cuerpo1
+       |   Inicio;
+
+Inicio ::= Request
+       |   EMate
+       |   Consulta;
+
+Request ::= dolar rrequest dolar ListaAccion dolar rrequest guion dolar;
+
+ListaAccion ::= ListaAccion Accion
+            |   Accion;
+
+Accion ::= dolar iniciousuario dolar Login dolar iniciousuario guion dolar
+       |   dolar crearusuario dolar RegistrarU dolar crearusuario guion dolar
+       |   dolar tienda tipo igual creartienda dolar CrearTienda dolar tienda guion dolar
+       |   dolar ModificarTienda guion dolar
+       |   dolar tienda CodigoET coma PropietarioET coma tipo igual eliminar guion dolar
+       |   dolar producto tipo igual creartienda dolar CrearProducto dolar producto guion dolar
+       |   dolar tienda id igual entero dolar ModificarProducto dolar tienda guion dolar
+       |   dolar producto tipo igual modificar ModificarPro guion dolar
+       |   dolar producto tipo igual eliminar CodigoEP SucursalEP guion dolar
+       |   ListaTiendas
+       |   ListaProductos;    
+
+Login ::= IdL PassL
+      |   PassL IdL;
+
+IdL ::= dolar id dolar IEntero dolar id guion dolar;
+
+PassL ::= dolar contrasena dolar identificador dolar contrasena guion dolar;
+
+RegistrarU ::= RegistrarU CampoU
+           |   CampoU; 
+
+CampoU ::= IdU
+       |   NombreU
+       |   ApellidoU
+       |   PassU
+       |   TelU
+       |   EmailU
+       |   DireccionU;
+
+IdU ::= dolar id dolar IEntero dolar id guion dolar;
+
+NombreU ::= dolar nombre dolar ICadena dolar nombre guion dolar;
+
+ApellidoU ::= dolar apellido dolar ICadena dolar apellido guion dolar;
+
+PassU ::= dolar contrasena dolar identificador dolar contrasena guion dolar;
+
+TelU ::= dolar telefono dolar IEntero dolar telefono guion dolar;
+
+EmailU ::= dolar email dolar:a correo:email dolar email guion dolar;
+
+DireccionU ::= dolar direccion dolar:a ICadena:cad dolar direccion guion dolar;
+
+CrearTienda ::= CrearTienda:lista CrearT:campoT
+            |   CrearT:campoT;
+
+CrearT ::= CodigoT
+       |   PropietarioT
+       |   NombreT
+       |   DireccionT
+       |   TelefonoT
+       |   ImgT;
+
+CodigoT ::= dolar codigo dolar:a IEntero:ent dolar codigo guion dolar;
+
+PropietarioT ::= dolar propietario dolar:a IEntero:ent dolar propietario guion dolar;
+
+NombreT ::= dolar nombre dolar:a ICadena:cad dolar nombre guion dolar;
+
+DireccionT ::= dolar direccion dolar:a ICadena:cad dolar direccion guion dolar;
+
+TelefonoT ::= dolar telefono dolar:a IEntero:ent dolar telefono guion dolar;
+
+ImgT ::= dolar img dolar:a ICadena:cad dolar img guion dolar;
+
+ModificarTienda ::= ModificarTienda:lista coma CampoModT:modT
+                |   CampoModT:modT;
+
+CampoModT ::=  ModificarT
+           |   CodigoMT
+           |   PropietarioMT
+           |   NombreMT
+           |   DireccionMT
+           |   TelefonoMT;
+
+ModificarT ::= tienda tipo igual:a modificacion:b;
+
+CodigoMT ::= codigo igual:a IEntero:ent;
+
+PropietarioMT ::= propietario igual:a IEntero:ent;
+
+NombreMT ::= nombre igual:a ICadena:cad;
+
+DireccionMT ::= direccion igual:a ICadena:cad;
+
+TelefonoMT ::= telefono igual:a IEntero:ent;
+
+CodigoET ::= codigo igual:a IEntero:ent;
+
+PropietarioET ::= propietario igual:a IEntero:ent;
+
+CrearProducto ::= CrearProducto:lista CampoP:campoP
+              |   CampoP:campoP;
+
+CampoP ::= CodigoP
+       |   NombreP
+       |   CantidadP
+       |   MarcaP
+       |   ColorP
+       |   TamanoP
+       |   ImgP
+       |   SucursalP;
+
+CodigoP ::= dolar codigo dolar:a IEntero:ent dolar codigo guion dolar;
+
+NombreP ::= dolar nombre dolar:a ICadena:cad dolar nombre guion dolar;
+
+CantidadP ::= dolar cantidad dolar:a Aritm:ari dolar cantidad guion dolar
+          |   dolar cantidad dolar:a LLamadaMate:llam dolar cantidad guion dolar;
+
+MarcaP ::= dolar marca dolar:a ICadena:cad dolar marca guion dolar;
+
+ColorP ::= dolar color dolar:a ICadena:cad dolar color guion dolar;
+
+TamanoP ::= dolar tamano dolar:a Aritm:ari dolar tamano guion dolar
+        |   dolar tamano dolar:a LLamadaMate:llam dolar tamano guion dolar;
+
+ImgP ::= dolar img dolar:a ICadena:img dolar img guion dolar
+
+SucursalP ::= dolar sucursal dolar:a IEntero:ent dolar sucursal guion dolar;
+
+Aritm ::= llavea:a Ope:ope llavec
+      |   entero:a;
+
+Ope ::= Ope:izq mas:a Ope:der
+    |   Ope:izq guion:a Ope:der
+    |   Ope:izq por:a Ope:der
+    |   Ope:izq div:a Ope:der
+    |   raiz para:a Ope:ope parc
+    |   pot para:a Ope:izq coma Ope:der parc
+    |   para Ope:a parc
+    |   entero:ent
+    |   identificador:id
+    |   decimal:dec;
+
+ModificarProducto ::= ModificarProducto:lista ModificarPro1:modP
+                  |   ModificarPro1:modP;
+
+ModificarPro1 ::= dolar producto tipo igual modificar:a ModificarPro:modP guion dolar
+              |   dolar producto tipo igual eliminar:a CodigoEP:codEP guion dolar;
+
+ModificarPro ::= ModificarPro:lista CampoMP:campoMP
+             |   CampoMP:campoMP;
+ 
+CampoMP ::= CodigoMP
+        |   NombreMP
+        |   CantidadMP
+        |   MarcaMP
+        |   ColorMP
+        |   TamanoMP
+        |   SucursalMP;
+
+
+CodigoMP ::= codigo igual:a IEntero:ent;
+
+NombreMP ::= nombre igual:a ICadena:cad;
+
+CantidadMP ::= cantidad igual:a Aritm:ari
+           |   cantidad igual:a LLamadaMate:llam;
+
+MarcaMP ::= marca igual:a ICadena:cad;
+
+ColorMP ::= color igual:a ICadena:cad;
+
+TamanoMP ::= tamano igual:a Aritm:ari
+         |   tamano igual:a LLamadaMate:llam;
+
+SucursalMP ::= sucursal igual:a IEntero:ent;
+
+CodigoEP ::= codigo igual:a IEntero:ent;
+
+SucursalEP ::= sucursal igual:a IEntero:ent;
+
+EMate ::= dolar mate nombre igual cadena:cad dolar:a CuerpoMate:mate dolar mate guion dolar;
+
+CuerpoMate ::=  CuerpoMate:lista Mate1:mate
+           |    Mate1:mate;
+
+Mate1 ::= Metod
+      |   Cons
+Metod ::= identificador:id para Parametros:par parc igual Aritm:ari puntoycoma;
+
+Parametros ::= Parametros:lista coma identificador:id
+           |   identificador:id;
+
+Cons ::= cons identificador:id igual ValCons:val puntoycoma;
+
+ValCons ::= entero:ent
+        |   decimal:dec
+        |   cadena:cad;
+
+LLamadaMate ::= corcha:a identificador:nombremate coma identificador:nombrevar para:b ParaLlamada:param parc corchc
+            |   corcha:a identificador:nombremate coma identificador:nombrevar corchc;
+
+ParaLlamada ::= ParaLlamada:lista coma ValPara:a
+            |   ValPara:a;
+
+ValPara ::= entero:entero
+        |   decimal:decimal;
+
+IEntero ::= entero:entero
+        |   LLamadaMate:llamadaM;
+
+ICadena ::= cadena:cad
+        |   LLamadaMate:llamadaM;
+
+Consulta ::= dolar query dolar CuerpoConsulta:consulta dolar query guion dolar;
+
+CuerpoConsulta ::= extraer de identificador:id puntoycoma
+               |   extraer de identificador:id donde ExpLog:exp puntoycoma;
+
+ExpLog ::= ExpLog:izq rand ExpLog:der
+       |   ExpLog:izq ror ExpLog:der
+       |   rnot para ExpLog:exp parc
+       |   para ExpLog:exp parc
+       |   identificador:id igual2 Aritm:ari
+       |   identificador:id igual2 LLamadaMate:llam
+       |   identificador:id igual2 cadena:cad;
+
+ListaTiendas ::= dolar rget tipo igual tiendas propietario igual entero:ent guion dolar;
+
+ListaProductos ::= dolar rget tipo igual productos propietario igual entero:ent sucursal igual entero:ent1 guion dolar;

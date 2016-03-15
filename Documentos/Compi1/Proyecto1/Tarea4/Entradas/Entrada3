@@ -1,0 +1,3 @@
+$query$
+	Extraer de Usuario donde Apellido == "Ramirez" ## (Nombre == "Justo" %% N(Telefono == "Vacio"));
+$query-$
